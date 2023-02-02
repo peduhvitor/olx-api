@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "start-dev": "nodemon server.js"
+    "start-dev": "nodemon -e ts,json src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +19,15 @@
     "mongoose": "^6.8.4",
     "nodemon": "^2.0.20",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.16",
+    "@types/express-fileupload": "^1.4.1",
+    "@types/jimp": "^0.2.28",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.11.18",
+    "@types/uuid": "^9.0.0"
   }
 }
