@@ -3,6 +3,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import fileupload from 'express-fileupload';
+import apiRoutes from './routes';
 import { mongoConnect } from './database/mongo';
 
 dotenv.config();
@@ -15,7 +16,7 @@ server.use(express.static(path.join(__dirname, '../public')));
 server.use(express.urlencoded({ extended: true }));
 server.use(fileupload());
 
-server.get('/ping', (req: Request, res: Response) => res.json({ pong: true }));
+server.use('/', apiRoutes)
 
 server.use((req: Request, res: Response) => {
     res.status(404);
