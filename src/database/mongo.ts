@@ -11,7 +11,6 @@ export const mongoConnect = async () => {
 
         await mongoose.connect(process.env.DATABASE as string, {
             useNewUrlParser: true,
-            useFindAndModify: false,
             useUnifiedTopology: true,
         })
 

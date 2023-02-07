@@ -7,7 +7,7 @@ import apiRoutes from './routes';
 import { mongoConnect } from './database/mongo';
 
 dotenv.config();
-/* mongoConnect(); */
+mongoConnect();
 
 const server = express();
 
@@ -16,7 +16,7 @@ server.use(express.static(path.join(__dirname, '../public')));
 server.use(express.urlencoded({ extended: true }));
 server.use(fileupload());
 
-server.use('/', apiRoutes)
+server.use(apiRoutes);
 
 server.use((req: Request, res: Response) => {
     res.status(404);
