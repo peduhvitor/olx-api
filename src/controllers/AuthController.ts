@@ -7,7 +7,44 @@ import State from "../models/State";
 
 
 export const signin = async (req: Request, res: Response) => {
-    
+    const errors = validationResult(req)
+    if(!errors.isEmpty()) {
+        res.json({error: errors.mapped()})
+        return
+    }
+
+    const data = matchedData(req)
+
+
+    // Validando o email
+
+    const user = await User.findOne({email: data.email})
+
+    if(!user) {
+        res.json({error: 'Email e/ou senha errados!'})
+        return
+    }
+
+
+    // Validando a senha
+
+    const match = await bcrypt.compare(data.password, user.passwordHash)
+
+    if(!match) {
+        res.json({error: 'Email e/ou senha errados!'})
+        return
+    }
+
+
+    // Criando token
+
+    const payload = (Date.now() + Math.random()).toString()
+    const token = await bcrypt.hash(payload, 10)
+
+    user.token = token
+    await user.save()
+
+    res.json({token, email: data.email})
 }
 
 export const signup = async (req: Request, res: Response) => {
@@ -52,10 +89,15 @@ export const signup = async (req: Request, res: Response) => {
         return
     }
 
+
     const passwordHash = await bcrypt.hash(data.password, 10)
+
+
+    // Criando token de acesso
 
     const payload = (Date.now() + Math.random()).toString()
     const token = await bcrypt.hash(payload, 10)
+
 
     const newUser = new User({
         name: data.name,

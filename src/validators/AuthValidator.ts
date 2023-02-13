@@ -25,3 +25,18 @@ export const signup = checkSchema({
         errorMessage: 'Estado não preenchido'
      }
 })
+
+export const signin = checkSchema({
+   email: {
+      isEmail: true,
+      normalizeEmail: true,
+      notEmpty: true,
+      errorMessage: 'Email inválido'
+   },
+   password: {
+      isLength: {
+          options: { min: 2 }
+      },
+      errorMessage: 'A senha precisa ter pelo menos 2 caracteres'
+   }
+})
