@@ -4,6 +4,7 @@ import * as UserController from './controllers/UserController';
 import * as AdsController from './controllers/AdsController';
 import { privateRoute } from './middlewares/Auth';
 import * as AuthValidator from './validators/AuthValidator';
+import * as UserValidator from './validators/UserValidator';
 
 const router = Router();
 
@@ -17,7 +18,7 @@ router.post('/user/signin', AuthValidator.signin, AuthController.signin)
 router.post('/user/signup', AuthValidator.signup, AuthController.signup)
 
 router.get('/user/me', privateRoute, UserController.info)
-router.put('/user/me', privateRoute, UserController.editAction)
+router.put('/user/me', UserValidator.editAction, privateRoute, UserController.editAction)
 
 router.get('/categories', AdsController.getCategories)
 
